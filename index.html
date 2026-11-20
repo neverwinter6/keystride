@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f2eadc">
+  <meta name="referrer" content="no-referrer">
+  <meta name="description" content="Keystride is a keyboard-first touch-typing studio with everyday drills, coding and language tracks, random text practice, limited-lookahead reveal, adaptive coaching, and no mouse required.">
+  <link rel="canonical" href="https://keystride-iota.vercel.app/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Keystride">
+  <meta property="og:title" content="Keystride — Everyday typing, code & languages">
+  <meta property="og:description" content="72 guided lessons across everyday prose, real code and 12 programming languages, plus random text practice and keyboard-first practice.">
+  <meta property="og:url" content="https://keystride-iota.vercel.app/">
+  <meta name="twitter:card" content="summary">
+  <title>Keystride — Everyday typing, code & languages</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23e94b2c'/%3E%3Cpath d='M18 48V16h9v13l12-13h11L36 31l15 17H39L27 33v15z' fill='%23fff8ec'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="paper-grain" aria-hidden="true"></div>
+  <div class="page-decor decor-sun" aria-hidden="true"></div>
+  <div class="page-decor decor-block" aria-hidden="true"></div>
+
+  <div class="app-shell">
+    <header class="masthead">
+      <div class="masthead-inner">
+        <button class="brand" type="button" data-view-target="practice" aria-label="Keystride home">
+          <span class="brand-mark" aria-hidden="true">K</span>
+          <span class="brand-copy">
+            <strong>keystride</strong>
+            <small>typing studio</small>
+          </span>
+        </button>
+
+        <nav class="primary-nav" aria-label="Main">
+          <button class="nav-link is-active" type="button" data-view="practice" aria-keyshortcuts="Alt+1">
+            <span class="nav-index">01</span>
+            <span>Practice</span>
+          </button>
+          <button class="nav-link" type="button" data-view="progress" aria-keyshortcuts="Alt+2">
+            <span class="nav-index">02</span>
+            <span>Progress</span>
+          </button>
+          <button class="nav-link" type="button" data-view="guide" aria-keyshortcuts="Alt+3">
+            <span class="nav-index">03</span>
+            <span>Field guide</span>
+          </button>
+        </nav>
+
+        <div class="topbar-actions">
+          <div class="streak-pill" id="streakPill" title="Current practice streak">
+            <span class="flame" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M13.2 2.7c.5 3.4-1.7 4.7-2.8 6.4-1 1.5-1.1 3.4.7 3.8 1.5.3 2.2-1.4 2.4-2.8 2 2 3.5 4.3 3.5 6.8A6.4 6.4 0 0 1 10.6 23 6.6 6.6 0 0 1 4 16.5c0-4.7 3.8-7.1 5.5-10.4.7-1.4 1-2.4.7-3.4.9.4 1.8 1.3 3 0Z"/></svg>
+            </span>
+            <strong id="topStreak">0</strong>
+            <span>day streak</span>
+          </div>
+          <button class="command-trigger" id="commandTrigger" type="button" aria-label="Open command palette" aria-keyshortcuts="Control+K Meta+K" title="Command palette (Ctrl K)">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6H7a2 2 0 1 0 2 2V6ZM15 6h2a2 2 0 1 1-2 2V6ZM9 18H7a2 2 0 1 1 2-2v2ZM15 18h2a2 2 0 1 0-2-2v2ZM9 8v8M15 8v8M9 12h6"/></svg>
+            <span>Jump to</span>
+            <kbd id="commandShortcut">Ctrl K</kbd>
+          </button>
+          <button class="map-trigger" type="button" data-open-course aria-label="Open lesson map" title="Open lesson map (Alt L)">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4zM9 5v14M15 5v14"/></svg>
+            <span>Lesson map</span>
+          </button>
+          <button class="icon-toggle" id="soundBtn" type="button" aria-pressed="false" aria-label="Toggle key sounds" title="Toggle key sounds">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6.5 9H3v6h3.5L11 19V5Z"/><path d="M15 9a4 4 0 0 1 0 6M17.5 6.5a7.5 7.5 0 0 1 0 11"/></svg>
+          </button>
+          <button class="icon-toggle" id="strictBtn" type="button" aria-pressed="false" aria-label="Toggle strict mode" title="Disable backspace while practicing">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12 7.5 6h10A2.5 2.5 0 0 1 20 8.5v7a2.5 2.5 0 0 1-2.5 2.5h-10L3 12Z"/><path d="m9.5 9.5 5 5M14.5 9.5l-5 5"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="masthead-sub">
+        <div class="crumb" aria-label="Breadcrumb">
+          <span id="crumbRoot">Curriculum</span>
+          <span class="crumb-slash" aria-hidden="true">/</span>
+          <strong id="crumbCurrent">Groundwork</strong>
+        </div>
+        <div class="masthead-note">
+          <span class="live-dot" aria-hidden="true"></span>
+          Local-first · no account
+        </div>
+      </div>
+    </header>
+
+    <main class="main" id="main">
+      <section class="view is-active" id="practiceView" data-view-panel="practice">
+        <div class="practice-wrap">
+          <div class="studio-top">
+            <div class="studio-kicker">
+              <div class="track-switch" role="tablist" aria-label="Learning track">
+                <button class="track-tab is-active" type="button" data-track="general" role="tab" aria-selected="true">Everyday</button>
+                <button class="track-tab" type="button" data-track="code" role="tab" aria-selected="false">Code lab</button>
+                <button class="track-tab" type="button" data-track="languages" role="tab" aria-selected="false">Languages</button>
+              </div>
+              <div class="path-summary">
+                <span id="pathLabel">Everyday path</span>
+                <span class="path-summary-rule" aria-hidden="true"></span>
+                <strong id="pathPercent">0%</strong>
+              </div>
+              <button class="text-link lesson-map-link" type="button" data-open-course>All lessons <span aria-hidden="true">↗</span></button>
+            </div>
+
+            <div class="lesson-heading">
+              <div class="lesson-copy">
+                <div class="eyebrow lesson-eyebrow">
+                  <span id="lessonUnit">Unit 01 · Groundwork</span>
+                  <span class="eyebrow-dot" aria-hidden="true"></span>
+                  <span id="lessonNumber">Lesson 01</span>
+                </div>
+                <h1 id="lessonTitle">Find your home</h1>
+                <p id="lessonDesc">Settle into the two anchor keys that everything else returns to.</p>
+                <div class="focus-row">
+                  <span class="focus-label">Focus</span>
+                  <span class="focus-chips" id="focusChips"></span>
+                </div>
+              </div>
+              <div class="lesson-actions">
+                <button class="btn btn-outline" id="randomBtn" type="button" aria-keyshortcuts="Alt+G" title="Generate random text (Alt+G)">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h3l3 5 3-5h4"/><path d="M3 17h3l3-5 3 5h4"/><path d="M18 4l3 3-3 3"/><path d="M18 14l3 3-3 3"/></svg>
+                  Random
+                </button>
+                <button class="btn btn-ink" id="restartBtn" type="button" aria-keyshortcuts="Alt+R" title="New run (Alt+R)">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 6.3"/><path d="M20 4v7h-7"/></svg>
+                  New run
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="scoreboard" aria-label="Live run statistics">
+            <div class="score-main">
+              <span class="score-label">Words / minute</span>
+              <div class="score-value"><strong id="wpm">0</strong><span>WPM</span></div>
+              <span class="score-target" id="wpmTarget">Target · 18 WPM</span>
+            </div>
+            <div class="score-cell">
+              <span class="score-label">Accuracy</span>
+              <strong id="accuracy">100<span>%</span></strong>
+            </div>
+            <div class="score-cell">
+              <span class="score-label">Time</span>
+              <strong id="timer">0:00</strong>
+            </div>
+            <div class="score-cell">
+              <span class="score-label">Combo</span>
+              <strong id="combo">0</strong>
+            </div>
+            <div class="score-goal">
+              <div class="goal-row"><span>Lesson goal</span><strong id="goalValue">0%</strong></div>
+              <div class="goal-track" aria-hidden="true"><span id="goalFill"></span></div>
+            </div>
+          </div>
+
+          <article class="typing-card" id="typingCard" aria-label="Typing practice area">
+            <div class="typing-top">
+              <div class="card-status-group">
+                <span class="code-tag" id="codeTag" hidden>Code</span>
+                <span class="run-status" id="runStatus"><span class="status-dot" aria-hidden="true"></span> Ready when you are</span>
+              </div>
+              <div class="typing-controls">
+                <span class="reveal-label">Reveal</span>
+                <div class="reveal-switch" id="revealSwitch" role="group" aria-label="Text reveal mode">
+                  <button type="button" data-reveal="one" title="Only typed text and the current letter are visible">1 letter</button>
+                  <button class="is-active" type="button" data-reveal="letters" title="Show the current letter and the next five letters">Next 5</button>
+                  <button type="button" data-reveal="line" title="Show the complete drill so you can read ahead">Full line</button>
+                </div>
+              </div>
+              <span class="run-meta" id="runMeta">0 / 0</span>
+            </div>
+            <div class="type-viewport" id="typeViewport">
+              <div class="type-text" id="typeText" aria-label="Practice text"></div>
+              <textarea class="typing-input" id="typingInput" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-label="Type the practice text here"></textarea>
+              <div class="focus-veil" id="focusVeil" aria-hidden="true" hidden>
+                <span class="veil-mark">K</span>
+                <strong>Click to keep typing</strong>
+                <small>Pick up where you left off</small>
+              </div>
+            </div>
+            <div class="typing-bottom">
+              <div class="card-progress" aria-hidden="true"><span id="cardProgress"></span></div>
+              <div class="typing-hint">
+                <span id="typingModeHint">Current + next 5 letters visible</span>
+                <span class="hint-sep" aria-hidden="true">/</span>
+                <span><kbd>esc</kbd> restart</span>
+              </div>
+            </div>
+          </article>
+
+          <div class="lower-deck">
+            <article class="keyboard-card">
+              <div class="keyboard-head">
+                <div>
+                  <span class="eyebrow">The keyboard</span>
+                  <h2>Next key <span class="next-key" id="nextKeyLabel">F</span></h2>
+                </div>
+                <p class="finger-hint" id="fingerHint"><span class="finger-dot" style="--finger-color: var(--finger-index)"></span> Left index finger</p>
+              </div>
+              <div class="keyboard-scroll">
+                <div class="keyboard" id="keyboard" role="img" aria-label="Illustrated keyboard with the next key highlighted"></div>
+              </div>
+              <div class="finger-legend" aria-hidden="true">
+                <span><i style="--tone: var(--finger-pinky)"></i>Pinky</span>
+                <span><i style="--tone: var(--finger-ring)"></i>Ring</span>
+                <span><i style="--tone: var(--finger-middle)"></i>Middle</span>
+                <span><i style="--tone: var(--finger-index)"></i>Index</span>
+                <span><i style="--tone: var(--finger-thumb)"></i>Thumb</span>
+                <span class="legend-tip">Home bumps on <b>F</b> &amp; <b>J</b></span>
+              </div>
+            </article>
+
+            <aside class="support-rail">
+              <article class="coach-card">
+                <div class="coach-head">
+                  <span class="coach-avatar" aria-hidden="true">K</span>
+                  <div><span>Coach</span><small>on your side</small></div>
+                  <span class="coach-mark" aria-hidden="true">✳</span>
+                </div>
+                <p id="coachText">Keep your wrists floating, not resting. Tap F and J with your index fingers and return to the bumps.</p>
+                <div class="weak-block" id="weakBlock" hidden>
+                  <span class="weak-title">Sticky keys to revisit</span>
+                  <div class="key-chips" id="weakKeys"></div>
+                </div>
+                <button class="btn btn-yellow btn-sm" id="smartDrillBtn" type="button" hidden>
+                  Drill these keys
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M14 6l6 6-6 6"/></svg>
+                </button>
+              </article>
+
+              <article class="note-card">
+                <span class="eyebrow">Lesson note</span>
+                <p id="lessonTip">The raised bumps on F and J let you reset without looking down.</p>
+              </article>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section class="view" id="progressView" data-view-panel="progress" hidden>
+        <div class="page-wrap">
+          <header class="page-heading">
+            <div>
+              <div class="eyebrow">The record</div>
+              <h1>Proof of practice.</h1>
+              <p>Speed is a byproduct of clean repetitions. Here is what your hands have learned so far.</p>
+            </div>
+            <div class="page-actions">
+              <button class="btn btn-ink" id="progressSmartBtn" type="button">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="3.2"/></svg>
+                Smart drill
+              </button>
+            </div>
+          </header>
+
+          <div class="metric-grid">
+            <article class="metric-card">
+              <span class="metric-label">Best speed</span>
+              <strong><span id="metricBestWpm">0</span><small>WPM</small></strong>
+              <span class="metric-foot" id="metricBestFoot">Finish a run to set a mark</span>
+            </article>
+            <article class="metric-card">
+              <span class="metric-label">Average accuracy</span>
+              <strong><span id="metricAccuracy">—</span><small>%</small></strong>
+              <span class="metric-foot" id="metricAccuracyFoot">Precision before pace</span>
+            </article>
+            <article class="metric-card">
+              <span class="metric-label">Time practiced</span>
+              <strong><span id="metricTime">0</span><small>min</small></strong>
+              <span class="metric-foot">Across completed runs</span>
+            </article>
+            <article class="metric-card">
+              <span class="metric-label">Lessons complete</span>
+              <strong><span id="metricLessons">0</span><small>/ <span id="metricLessonsTotal">72</span></small></strong>
+              <span class="metric-foot" id="metricStreakFoot">No streak yet</span>
+            </article>
+          </div>
+
+          <div class="progress-grid">
+            <article class="panel chart-panel">
+              <header class="panel-head">
+                <div><span class="eyebrow">Speed</span><h2>Your pace over time</h2></div>
+                <span class="panel-meta">Last 12 runs</span>
+              </header>
+              <div class="chart-wrap" id="speedChart"></div>
+            </article>
+
+            <article class="panel weak-panel">
+              <header class="panel-head">
+                <div><span class="eyebrow">Coach</span><h2>Keys worth revisiting</h2></div>
+              </header>
+              <div class="weak-list" id="weakKeyList"></div>
+              <button class="text-link" id="weakDrillBtn" type="button" hidden>Build a drill for these keys <span aria-hidden="true">↗</span></button>
+            </article>
+
+            <article class="panel calendar-panel">
+              <header class="panel-head">
+                <div><span class="eyebrow">Consistency</span><h2>Last 28 days</h2></div>
+                <span class="panel-meta" id="calendarMeta">No activity yet</span>
+              </header>
+              <div class="calendar" id="activityCalendar"></div>
+              <div class="calendar-legend"><span>Less</span><i></i><i></i><i></i><i></i><span>More</span></div>
+            </article>
+
+            <article class="panel records-panel">
+              <header class="panel-head">
+                <div><span class="eyebrow">Milestones</span><h2>Lesson bests</h2></div>
+                <span class="panel-meta" id="recordsMeta">No records yet</span>
+              </header>
+              <div class="record-list" id="recordList"></div>
+            </article>
+
+            <article class="panel sessions-panel">
+              <header class="panel-head">
+                <div><span class="eyebrow">Logbook</span><h2>Recent runs</h2></div>
+                <button class="text-link" type="button" id="clearHistoryBtn" hidden>Reset progress</button>
+              </header>
+              <div class="session-list" id="sessionList"></div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="view" id="guideView" data-view-panel="guide" hidden>
+        <div class="page-wrap guide-wrap">
+          <header class="page-heading guide-heading">
+            <div>
+              <div class="eyebrow">Field guide</div>
+              <h1>The quiet mechanics of speed.</h1>
+              <p>Fast typists do not try harder. They remove friction: eyes on the screen, fingers on the anchors, and just enough tension to press a key.</p>
+            </div>
+            <div class="page-actions">
+              <button class="btn btn-ink" id="guideStartBtn" type="button">Continue the path</button>
+            </div>
+          </header>
+
+          <div class="guide-grid">
+            <article class="guide-hero-card">
+              <span class="guide-number">01</span>
+              <div>
+                <span class="eyebrow">The one rule</span>
+                <h2>Do not look down.</h2>
+                <p>Looking at your hands feels safe, but it trains your eyes to do work your fingers should own. Glance away, reset on the F and J bumps, and let the map form in your hands. It will feel clumsy for a day or two. Then it will feel automatic.</p>
+              </div>
+              <div class="guide-quote">“Accuracy is not the opposite of speed. It is the door.”</div>
+            </article>
+
+            <article class="guide-card posture-card">
+              <span class="eyebrow">Posture</span>
+              <h2>Settle in, then forget it.</h2>
+              <ul class="check-list">
+                <li><span>01</span><p>Feet flat, hips back, screen near eye level.</p></li>
+                <li><span>02</span><p>Elbows close to 90°, wrists floating, fingers curved.</p></li>
+                <li><span>03</span><p>Index fingers resting on <b>F</b> and <b>J</b>.</p></li>
+                <li><span>04</span><p>Strike with the fingertip, then release the tension.</p></li>
+              </ul>
+            </article>
+
+            <article class="guide-card warmup-card">
+              <span class="eyebrow">Before you start</span>
+              <h2>Warm the hands, not the ego.</h2>
+              <p class="guide-lede">Sixty seconds of easy movement makes the first line feel less like a cold start.</p>
+              <div class="warmup-steps">
+                <div><span>01</span><p><b>Unclench.</b> Shake out the hands, roll the shoulders back, and drop the jaw.</p></div>
+                <div><span>02</span><p><b>Wake the fingers.</b> Tap each fingertip to the thumb, slowly, one hand at a time.</p></div>
+                <div><span>03</span><p><b>First line slow.</b> Type one sentence at half speed and find the home-row bumps.</p></div>
+              </div>
+            </article>
+
+            <article class="guide-card map-card">
+              <div class="panel-head">
+                <div><span class="eyebrow">The map</span><h2>One finger per zone.</h2></div>
+              </div>
+              <div class="keyboard-scroll">
+                <div class="keyboard keyboard-tinted" id="guideKeyboard" role="img" aria-label="Keyboard colored by finger zone"></div>
+              </div>
+              <p class="map-note">Each color is a finger zone. Your index fingers cover two columns each; your thumbs own the space bar.</p>
+            </article>
+
+            <article class="guide-card code-guide-card">
+              <div class="panel-head">
+                <div><span class="eyebrow">Code mode</span><h2>When the text is code.</h2></div>
+                <span class="panel-meta">Both hands · no mouse</span>
+              </div>
+              <div class="code-guide-grid">
+                <div><b>01</b><span>Shift with the opposite pinky.</span><small>Right-hand symbol, left Shift. Left-hand symbol, right Shift.</small></div>
+                <div><b>02</b><span>Land the pairs.</span><small>Brackets, braces and quotes come in twos. Type the pair as one thought.</small></div>
+                <div><b>03</b><span>Own the punctuation.</span><small>Semicolons, colons and underscores live on the right pinky and ring fingers.</small></div>
+                <div><b>04</b><span>Keep a code rhythm.</span><small>Accuracy on symbols matters more than raw speed. Read the line before you type it.</small></div>
+              </div>
+            </article>
+
+            <article class="guide-card shortcuts-guide-card">
+              <div class="panel-head">
+                <div><span class="eyebrow">Keyboard-first</span><h2>Keep both hands on the keyboard.</h2></div>
+                <span class="panel-meta">No mouse needed</span>
+              </div>
+              <div class="shortcut-grid">
+                <div><kbd>Ctrl/⌘ K</kbd><span>Jump to any lesson or command</span></div>
+                <div><kbd>Alt 1–3</kbd><span>Practice · Progress · Guide</span></div>
+                <div><kbd>Alt T</kbd><span>Cycle Everyday / Code / Languages</span></div>
+                <div><kbd>Alt L</kbd><span>Open the lesson map</span></div>
+                <div><kbd>Alt R</kbd><span>New run</span></div>
+                <div><kbd>Alt G</kbd><span>Random text drill</span></div>
+                <div><kbd>Alt N</kbd><span>Next lesson</span></div>
+                <div><kbd>Alt S / X</kbd><span>Sound / strict mode</span></div>
+                <div><kbd>Esc</kbd><span>Restart the current line</span></div>
+              </div>
+            </article>
+
+            <article class="guide-card rhythm-card">
+              <span class="eyebrow">A 20-minute session</span>
+              <h2>Small, steady, repeatable.</h2>
+              <div class="routine">
+                <div><span>5 min</span><p><b>Reset.</b> Slow drills on the lesson's focus keys. Perfection is the only goal.</p></div>
+                <div><span>10 min</span><p><b>Build.</b> Type words and sentences at a pace where you make almost no errors.</p></div>
+                <div><span>5 min</span><p><b>Release.</b> One fast pass. Let accuracy carry the speed instead of forcing it.</p></div>
+              </div>
+            </article>
+
+            <article class="guide-card rules-card">
+              <span class="eyebrow">Five rules that compound</span>
+              <div class="rule-grid">
+                <div><b>01</b><span>Accuracy first</span><small>A clean 40 WPM beats a messy 60.</small></div>
+                <div><b>02</b><span>Choose your reveal</span><small>Next 5 shows a little ahead. Full line opens the whole drill.</small></div>
+                <div><b>03</b><span>Keep a beat</span><small>Even rhythm, not stop-start bursts.</small></div>
+                <div><b>04</b><span>Stay loose</span><small>Light pressure; shoulders down.</small></div>
+                <div><b>05</b><span>Return home</span><small>F and J are your reset button.</small></div>
+                <div class="rule-highlight"><b>06</b><span>Show up daily</span><small>Ten minutes beats one long session.</small></div>
+              </div>
+            </article>
+
+            <article class="guide-cta">
+              <div>
+                <span class="eyebrow">Ready when you are</span>
+                <h2>Put your fingers on the anchors.</h2>
+              </div>
+              <button class="btn btn-ink" id="guideCtaBtn" type="button">Continue the path <span aria-hidden="true">→</span></button>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>Keystride <span class="version">v3.0.0</span> · live</span>
+      <button class="footer-link" id="privacyBtn" type="button">Privacy &amp; storage</button>
+      <span>No tracking · no account</span>
+    </footer>
+  </div>
+
+  <dialog class="consent-dialog" id="consentDialog" aria-labelledby="consentTitle" aria-describedby="consentDesc">
+    <div class="consent-shell">
+      <button class="icon-btn consent-close" id="closeConsent" type="button" aria-label="Close privacy choices">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+      <span class="eyebrow">Privacy choices</span>
+      <h2 id="consentTitle">Cookies &amp; local storage</h2>
+      <p id="consentDesc">Keystride sets <strong>no cookies</strong> — no advertising, analytics or third-party trackers. It can save your lesson progress, settings and streak in this browser so you can continue where you left off.</p>
+      <p class="consent-status" id="consentStatus" role="status">No preference saved yet.</p>
+      <div class="consent-actions">
+        <button class="btn btn-ink" id="consentAllow" type="button">Allow progress storage</button>
+        <button class="btn btn-outline" id="consentEssential" type="button">Essential only</button>
+      </div>
+      <div class="consent-links">
+        <button class="text-link" id="consentDetailsBtn" type="button" aria-expanded="false" aria-controls="consentDetails">What is stored?</button>
+        <a class="text-link" href="/privacy.html" target="_blank" rel="noopener">Full privacy policy</a>
+      </div>
+      <div class="consent-details" id="consentDetails" hidden>
+        <p><strong>Essential:</strong> your consent choice is kept in this browser so the prompt does not repeat on every visit.</p>
+        <p><strong>Optional:</strong> lesson progress, best results, weak-key counts, practice time, streak and typing preferences. These stay on this device.</p>
+        <p>No typing content is uploaded. You can clear saved data from the Progress screen or change this choice at any time.</p>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog class="course-dialog" id="courseDialog" aria-labelledby="courseTitle">
+    <div class="course-shell">
+      <header class="course-head">
+        <div>
+          <span class="eyebrow">Curriculum</span>
+          <h2 id="courseTitle">Lesson map</h2>
+        </div>
+        <button class="icon-btn" id="closeCourse" type="button" aria-label="Close lesson map">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        </button>
+      </header>
+      <div class="course-summary">
+        <span id="sideStreak">0 days</span>
+        <span id="pathLabelMirror">Everyday path</span>
+        <span class="path-summary-rule" aria-hidden="true"></span>
+        <strong id="coursePercent">0%</strong>
+      </div>
+      <div class="path-progress" aria-hidden="true"><span id="pathFill"></span></div>
+      <div class="course-path" id="coursePath"></div>
+      <footer class="course-foot">
+        <span>Use <kbd>Ctrl/⌘ K</kbd> to jump to any lesson.</span>
+        <span class="version">v3.0.0</span>
+      </footer>
+    </div>
+  </dialog>
+
+  <dialog class="summary-dialog" id="summaryDialog" aria-labelledby="summaryHeadline">
+    <div class="summary-shell">
+      <button class="icon-btn summary-close" id="closeSummary" type="button" aria-label="Close summary">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+      <div class="summary-top">
+        <span class="eyebrow" id="summaryEyebrow">Run complete</span>
+        <div class="summary-stars" id="summaryStars" aria-label="Three stars">★ ★ ★</div>
+        <h2 id="summaryHeadline">Beautifully done.</h2>
+        <p id="summaryNote">Your hands are finding the pattern.</p>
+        <span class="pb-badge" id="summaryPb" hidden>New personal best</span>
+      </div>
+      <div class="summary-stats">
+        <div><strong id="summaryWpm">0</strong><span>WPM</span></div>
+        <div><strong id="summaryAccuracy">0%</strong><span>accuracy</span></div>
+        <div><strong id="summaryTime">0:00</strong><span>time</span></div>
+      </div>
+      <div class="summary-coach">
+        <span class="coach-avatar small" aria-hidden="true">K</span>
+        <p id="summaryCoach">Accuracy first. Let the next run be a little smoother.</p>
+      </div>
+      <div class="summary-weak" id="summaryWeak" hidden>
+        <span>Worth another pass</span>
+        <div class="key-chips" id="summaryWeakKeys"></div>
+      </div>
+      <div class="summary-actions">
+        <button class="btn btn-ink" id="nextLessonBtn" type="button">Next lesson <span aria-hidden="true">→</span></button>
+        <button class="btn btn-outline" id="retryBtn" type="button">Retry</button>
+      </div>
+      <button class="text-link summary-progress-link" id="summaryProgressBtn" type="button">See all progress</button>
+    </div>
+  </dialog>
+
+  <dialog class="reset-dialog" id="resetDialog" aria-labelledby="resetTitle">
+    <div class="reset-shell">
+      <span class="eyebrow">Reset progress</span>
+      <h2 id="resetTitle">Clear the whole log?</h2>
+      <p>This removes every lesson result, weak-key memory and streak from this browser. It cannot be undone.</p>
+      <div class="reset-actions">
+        <button class="btn btn-outline" id="cancelReset" type="button">Keep my progress</button>
+        <button class="btn btn-danger" id="confirmReset" type="button">Clear everything</button>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog class="command-dialog" id="commandDialog" aria-labelledby="commandLabel">
+    <div class="command-shell">
+      <h2 class="sr-only" id="commandLabel">Command palette</h2>
+      <div class="command-search">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 5 5"/></svg>
+        <input id="commandInput" type="text" placeholder="Jump to a lesson or run a command…" autocomplete="off" spellcheck="false" role="combobox" aria-autocomplete="list" aria-expanded="true" aria-controls="commandList">
+        <kbd>esc</kbd>
+      </div>
+      <div class="command-results" id="commandList" role="listbox" aria-label="Commands"></div>
+      <div class="command-footer">
+        <span><kbd>↑</kbd><kbd>↓</kbd> move</span>
+        <span><kbd>↵</kbd> open</span>
+        <span><kbd>esc</kbd> close</span>
+        <span class="command-footer-tip">Alt 1–3 · views · Alt T · track</span>
+      </div>
+    </div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
